@@ -1,25 +1,29 @@
 #include "base_engine.h"
-#include "helper.h"
+#include "../utils/helper.h"
 
 namespace rlcard
 {
     namespace engine
     {
-        int Card::hash(const string & _suit, const string & _rank)
+        int Card::hash(const string &_suit, const string &_rank)
         {
             int suit_index = GetIndexOfVector(kSuit, _suit);
             int rank_index = GetIndexOfVector(kRank, _rank);
             return rank_index + 100 * suit_index;
         }
 
-        inline bool Card::operator==(const Card & _card)
+        // inline bool Card::operator==(const Card &_card)
+        // {
+        //     return _card.rank_ == rank_ && _card.suit_ == suit_;
+        // }
+
+        // inline string Card::GetCardRepresentation()
+        // {
+        //     return rank_ + suit_;
+        // }
+
+        Dealer::~Dealer()
         {
-            return _card.rank_ == rank_ && _card.suit_ == suit_;
-        }
-        
-        inline string Card::GetCardRepresentation()
-        {
-            return rank_ + suit_;
         }
 
         inline int Dealer::GetRemainedCardNumber()
@@ -31,5 +35,5 @@ namespace rlcard
         {
             return int(deck_.size());
         }
-    }
-}
+    } // namespace engine
+} // namespace rlcard
