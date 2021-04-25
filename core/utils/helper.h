@@ -8,3 +8,6 @@ namespace rlcard
     template <typename _T>
     int GetIndexOfVector(const vector<_T> & vec, const _T & element);
 }
+
+
+#include "helper.tpp"

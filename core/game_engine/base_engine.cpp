@@ -7,29 +7,25 @@ namespace rlcard
     {
         int Card::hash(const string & _suit, const string & _rank)
         {
-            int suit_index = GetIndexOfVector(kSuit, _suit);
-            int rank_index = GetIndexOfVector(kRank, _rank);
+            int suit_index = rlcard::GetIndexOfVector(kSuit, _suit);
+            int rank_index = rlcard::GetIndexOfVector(kRank, _rank);
             return rank_index + 100 * suit_index;
         }
 
-        inline bool Card::operator==(const Card & _card)
+        Dealer::~Dealer()
         {
-            return _card.rank_ == rank_ && _card.suit_ == suit_;
-        }
-        
-        inline string Card::GetCardRepresentation()
-        {
-            return rank_ + suit_;
+            deck_.clear();
+            remained_cards_.clear();
         }
 
-        inline int Dealer::GetRemainedCardNumber()
+        vector<Card*> Player::GetHandCard()
         {
-            return int(remained_cards_.size());
+            return hand_cards_;
         }
 
-        inline int Dealer::GetTotalCardNumber()
+        Player::~Player()
         {
-            return int(deck_.size());
+            hand_cards_.clear();
         }
     }
 }
