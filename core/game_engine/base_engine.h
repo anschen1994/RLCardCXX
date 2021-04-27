@@ -19,9 +19,9 @@ namespace rlcard
 
                 inline string GetCardRepresentation() {return rank_ + suit_;}
 
-                inline string GetSuit(){return suit_;}
+                inline string GetSuit()const {return suit_;}
 
-                inline string GetRank(){return rank_;}
+                inline string GetRank() const {return rank_;}
 
             protected:
                 const string suit_;
@@ -34,7 +34,7 @@ namespace rlcard
             public:
                 Dealer() = default;
 
-                ~Dealer();
+                virtual ~Dealer();
 
                 virtual void Shuffle() = 0; // shuffle the remained cards
 
@@ -54,13 +54,13 @@ namespace rlcard
             public:
                 Player(int _player_id) : player_id_(_player_id) {}
 
-                ~Player();
+                virtual ~Player();
 
                 virtual vector<string> AvailableOrder() = 0;
 
-                inline int GetPlayerID(){return player_id_;}
+                inline int GetPlayerID() const {return player_id_;}
 
-                vector<Card*> GetHandCard();
+                const vector<Card*> & GetHandCard();
 
             protected:
                 const int player_id_;

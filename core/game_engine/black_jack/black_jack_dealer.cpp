@@ -8,7 +8,7 @@ namespace rlcard
     {
         default_random_engine BlackJackDealer::rand_gen_(time(0));
 
-        BlackJackDealer::BlackJackDealer(string _status, int _score) : \
+        BlackJackDealer::BlackJackDealer(const string & _status, int _score) : \
         BlackJackPlayer(_status, _score, -1)
         {
             InitCards();
@@ -34,7 +34,7 @@ namespace rlcard
 
         bool BlackJackDealer::DealCard(BlackJackPlayer & player)
         {
-            if (int(deck_.size()) == 0)
+            if (deck_.empty())
             {
                 return false;
             }

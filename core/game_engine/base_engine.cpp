@@ -15,16 +15,24 @@ namespace rlcard
         Dealer::~Dealer()
         {
             deck_.clear();
+            for (auto card : remained_cards_)
+            {
+                delete card;
+            }
             remained_cards_.clear();
         }
 
-        vector<Card*> Player::GetHandCard()
+        const vector<Card*> & Player::GetHandCard()
         {
             return hand_cards_;
         }
 
         Player::~Player()
         {
+            for (auto card : hand_cards_)
+            {
+                delete card;
+            }
             hand_cards_.clear();
         }
     }

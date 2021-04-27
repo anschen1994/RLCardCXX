@@ -6,14 +6,35 @@ namespace rlcard
 {
     namespace engine
     {
+        BlackJackGame::BlackJackGame()
+        {
+            p_dealer_ = nullptr;
+            p_judger_ = nullptr;
+        }
+
         bool BlackJackGame::Reset()
         {
+            if (p_dealer_ != nullptr)
+            {
+                delete p_dealer_;
+            }
             p_dealer_ = new BlackJackDealer("alive", 0);
             p_dealer_->Shuffle();
+            for (auto p_player : p_players_)
+            {
+                if (p_player != nullptr)
+                {
+                    delete p_player;
+                }
+            }
             for (int i = 0; i < player_num_; i++)
             {
                 BlackJackPlayer* pPlayer = new BlackJackPlayer(i);
                 p_players_.push_back(pPlayer);
+            }
+            if (p_judger_ != nullptr)
+            {
+                delete p_judger_;
             }
             p_judger_ = new BlackJackJudger();
             for (int i = 0; i < kStartCardNum; i++)
@@ -31,6 +52,7 @@ namespace rlcard
             p_judger_->JudgeRound(*p_dealer_);
 
             // winners_.at("dealer") = 0;
+            winners_.clear();
             winners_.insert({"dealer", 0});
             for (int i = 0; i < player_num_; i++)
             {

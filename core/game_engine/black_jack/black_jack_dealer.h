@@ -10,7 +10,7 @@ namespace rlcard
         class BlackJackDealer : public BlackJackPlayer
         {
             public:
-                BlackJackDealer(string _status, int _score);
+                BlackJackDealer(const string & _status, int _score);
                 
                 void InitCards();
                 

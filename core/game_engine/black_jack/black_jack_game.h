@@ -28,7 +28,7 @@ namespace rlcard
         class BlackJackGame : public Game
         {
             public:
-                BlackJackGame() = default;
+                BlackJackGame();
 
                 ~BlackJackGame();
 
