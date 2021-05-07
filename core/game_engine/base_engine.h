@@ -1,6 +1,7 @@
 #pragma once
 #include "../config/config.h"
 #include <map>
+#include <string>
 
 using namespace std;
 
@@ -12,17 +13,20 @@ namespace rlcard
         {
         public:
             Card(const string &_suit, const string &_rank) : suit_(_suit), rank_(_rank), hash_value_(hash(_suit, _rank)) {}
-
+            Card(const Card &_card);
             int hash(const string &_suit, const string &_rank);
 
-            inline string GetCardRepresentation() { return rank_ + suit_; } // change: 内联函数定义放在头文件?
+            inline string GetCardRepresentation() { return rank_ + suit_; }
 
             inline bool operator==(const Card &_card) { return _card.rank_ == rank_ && _card.suit_ == suit_; }
-            const string suit_;
-            const string rank_;
+
+            inline string GetRank() { return rank_; }
+            inline string GetSuit() { return suit_; }
 
         protected:
-            const int hash_value_;
+            string suit_;
+            string rank_;
+            int hash_value_;
         };
 
         class Dealer
@@ -30,7 +34,7 @@ namespace rlcard
         public:
             Dealer() = default;
 
-            virtual ~Dealer(); // change: 析构函数没必要写成纯虚函数？
+            virtual ~Dealer() {} // change: 析构函数没必要写成纯虚函数？
 
             virtual void Shuffle() = 0; // shuffle the remained cards
 
@@ -55,9 +59,9 @@ namespace rlcard
             virtual vector<string> AvailableOrder() = 0;
 
             virtual void Play() = 0;
-            vector<Card *> hand_cards_;
 
         protected:
+            vector<Card *> hand_cards_;
             int player_id_;
         };
 

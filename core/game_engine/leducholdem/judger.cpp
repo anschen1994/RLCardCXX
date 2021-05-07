@@ -20,7 +20,7 @@ namespace rlcard
             auto it = _players->begin();
             for (int i = 0; i < _players->size(); i++) // case1:一方弃牌情况
             {
-                if ((*it)->player_status_ == "folded")
+                if ((*it)->GetPlayerStatus() == "folded")
                 {
                     winners[(i + 1) % 2] = 1;
                     // winners.at((i + 1) % 2) = 1;  //防止越界报错
@@ -33,12 +33,16 @@ namespace rlcard
 
             auto player1 = _players->begin();
             auto player2 = player1 + 1;
-            Card *player1_handcard = (*player1)->hand_cards_.at(0);
-            Card *player2_handcard = (*player2)->hand_cards_.at(0);
+            Card *player1_handcard = (*player1)->GetHandCards().at(0);
+            Card *player2_handcard = (*player2)->GetHandCards().at(0);
+
+            string p1_handcard_rank = player1_handcard->GetRank();
+            string p2_handcard_rank = player2_handcard->GetRank();
+            string public_card_rank = _public_card->GetRank();
 
             if (!found_winner_flag) // case2:平局情况，手牌相等
             {
-                if (player1_handcard->rank_ == player2_handcard->rank_)
+                if (p1_handcard_rank == p2_handcard_rank)
                 {
                     winners[0] = 1;
                     winners[1] = 1;
@@ -48,12 +52,12 @@ namespace rlcard
 
             if (!found_winner_flag) // case3: 一方手牌和public card相等情况
             {
-                if (player1_handcard->rank_ == _public_card->rank_)
+                if (p1_handcard_rank == public_card_rank)
                 {
                     winners[0] = 1;
                     found_winner_flag = true;
                 }
-                else if (player2_handcard->rank_ == _public_card->rank_)
+                else if (p2_handcard_rank == public_card_rank)
                 {
                     winners[1] = 1;
                     found_winner_flag = true;
@@ -65,7 +69,7 @@ namespace rlcard
 
             if (!found_winner_flag) //case4: 双方手牌比较
             {
-                if (Rank2Int(player1_handcard->rank_) > Rank2Int(player2_handcard->rank_))
+                if (Rank2Int(p1_handcard_rank) > Rank2Int(p2_handcard_rank))
                 {
                     winners[0] = 1;
                 }
@@ -81,8 +85,8 @@ namespace rlcard
 
             // Compute the total chips
             float total_chips = 0;
-            total_chips += (*player1)->in_chips_;
-            total_chips += (*player2)->in_chips_;
+            total_chips += (*player1)->GetInChips();
+            total_chips += (*player2)->GetInChips();
             int total_winners = 0;
             for (int i = 0; i < 2; i++)
             {
@@ -91,7 +95,7 @@ namespace rlcard
             float each_win = total_chips / total_winners;
             cout << "total chips: " << total_chips << "\ttotal winners: " << total_winners << "\teach win: " << each_win << endl;
 
-            vector<float> payed_chips = {(*player1)->in_chips_, (*player2)->in_chips_};
+            vector<float> payed_chips = {(*player1)->GetInChips(), (*player2)->GetInChips()};
             for (int i = 0; i < 2; i++)
             {
                 if (winners[i] == 1)

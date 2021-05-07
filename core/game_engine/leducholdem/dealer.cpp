@@ -26,31 +26,41 @@ namespace rlcard
             cout << "constructed leducholdem Dealer success~" << endl;
         }
 
+        // 拷贝构造函数
+        LeducholdemDealer::LeducholdemDealer(const LeducholdemDealer &_dealer)
+        {
+            random_seed_ = _dealer.random_seed_;
+            pot_ = _dealer.pot_;
+            for (Card *temp_card : _dealer.deck_)
+            {
+                Card *new_card = new Card(*temp_card);
+                deck_.push_back(new_card);
+            }
+            cout << "dealer 拷贝构造函数调用成功" << endl;
+        }
+
         // 析构，释放内存
         LeducholdemDealer::~LeducholdemDealer()
         {
-            cout << "=========================\n"
-                 << "destruct deck_ item" << endl;
             for (int i = 0; i < deck_.size(); i++)
             {
                 // string cardname = deck_[i]->GetCardRepresentation();
                 // cout << "delete card:" << i << "\t card id: " << cardname << endl;
                 delete deck_[i];
             }
+            cout << "dealer 析构函数调用成功" << endl;
         }
 
         // 洗牌
         void LeducholdemDealer::Shuffle()
         {
-            //TODO:need implement
             std::srand(random_seed_);
             random_shuffle(deck_.begin(), deck_.end());
         }
 
         // 发牌
-        Card *LeducholdemDealer::DealCard(int num_params, ...)
+        Card *LeducholdemDealer::DealCard()
         {
-            //TODO:need implement
             Card *backCard = deck_.back();
             deck_.pop_back();
             return backCard;

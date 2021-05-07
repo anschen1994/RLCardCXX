@@ -1,6 +1,8 @@
 #include "base_engine.h"
 #include "../utils/helper.h"
+#include <iostream>
 
+using std::cout;
 namespace rlcard
 {
     namespace engine
@@ -12,18 +14,13 @@ namespace rlcard
             return rank_index + 100 * suit_index;
         }
 
-        // inline bool Card::operator==(const Card &_card)
-        // {
-        //     return _card.rank_ == rank_ && _card.suit_ == suit_;
-        // }
-
-        // inline string Card::GetCardRepresentation()
-        // {
-        //     return rank_ + suit_;
-        // }
-
-        Dealer::~Dealer()
+        Card::Card(const Card &_card)
         {
+
+            suit_ = _card.suit_;
+            rank_ = _card.rank_;
+            hash_value_ = _card.hash_value_;
+            // cout << "Card 拷贝构造函数调用成功" << endl;
         }
 
         inline int Dealer::GetRemainedCardNumber()
