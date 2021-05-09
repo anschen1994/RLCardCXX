@@ -137,6 +137,7 @@ int main()
         cout << "Start Step..." << endl
              << endl;
 
+
         game.Step("call");
         game.StepBack();
     }
