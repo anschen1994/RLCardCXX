@@ -29,7 +29,7 @@ namespace rlcard
             }
             for (int i = 0; i < player_num_; i++)
             {
-                BlackJackPlayer* pPlayer = new BlackJackPlayer(i);
+                BlackJackPlayer* pPlayer = new BlackJackPlayer("alive", 0, i);
                 p_players_.push_back(pPlayer);
             }
             if (p_judger_ != nullptr)
@@ -56,7 +56,6 @@ namespace rlcard
             winners_.insert({"dealer", 0});
             for (int i = 0; i < player_num_; i++)
             {
-                // winners_.at("player" + to_string(i)) = 0;
                 winners_.insert({"player" + to_string(i), 0});
             }
             game_pointer_ = 0;
@@ -100,15 +99,24 @@ namespace rlcard
             BlackJackGameState next_state = GetState(game_pointer_, *p_state_);
 
             game_pointer_ = (game_pointer_ + 1) % player_num_;
+            // cout << p_dealer_->GetDeckCardNumber() << endl;
             return next_state;
         }
 
         BlackJackGame::~BlackJackGame()
         {
+            for (auto p_player : p_players_)
+            {
+                delete p_player;
+            }
             p_players_.clear();
             delete p_judger_;
             delete p_dealer_;
             winners_.clear();
+            for (auto history : history_)
+            {
+                delete history;
+            }
             history_.clear();
             delete p_state_;
         }

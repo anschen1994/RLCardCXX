@@ -10,10 +10,10 @@ namespace rlcard
             public:
                 BlackJackPlayer(int _player_id=0) : Player(_player_id) {}
 
-                BlackJackPlayer(string  _status, int _score = 0, int _player_id = 0) \
+                BlackJackPlayer(const string & _status, const int & _score, const int & _player_id) \
                 : Player(_player_id), status_(_status), score_(_score) {}
 
-                // ~BlackJackPlayer();
+                virtual ~BlackJackPlayer() {;}
 
                 void AddHandCard(Card* pCard);
 

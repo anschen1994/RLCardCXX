@@ -54,6 +54,8 @@ namespace rlcard
             public:
                 Player(int _player_id) : player_id_(_player_id) {}
 
+                Player(const Player & _player);
+
                 virtual ~Player();
 
                 virtual vector<string> AvailableOrder() = 0;
@@ -63,7 +65,7 @@ namespace rlcard
                 const vector<Card*> & GetHandCard();
 
             protected:
-                const int player_id_;
+                int player_id_;
                 vector<Card*> hand_cards_;
         };
 

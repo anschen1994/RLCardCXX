@@ -58,19 +58,22 @@ namespace rlcard
 
                 void ShowWinner();
 
+                inline const vector<BlackJackHistory*> & GetGameHistory() {return history_;}
+
+                inline const vector<BlackJackPlayer*> & GetGamePlayers() {return p_players_;}
 
             private:
                 const int player_num_ = 6;
                 BlackJackDealer* p_dealer_;
-                vector<BlackJackPlayer*> p_players_;
+                vector<BlackJackHistory*> history_;
+                vector<BlackJackPlayer*> p_players_;               
                 BlackJackJudger* p_judger_;
                 const int kStartCardNum = 2;
                 map<string, int> winners_;
                 size_t game_pointer_;
-                vector<BlackJackHistory*> history_;
                 BlackJackGameState* p_state_;
                 bool is_over_ = false;
-                bool is_allow_back_ = false;
+                bool is_allow_back_ = true;
                 const int min_dealer_score_ = 17;
 
         };

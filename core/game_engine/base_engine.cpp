@@ -27,6 +27,16 @@ namespace rlcard
             return hand_cards_;
         }
 
+        Player::Player(const Player & _player)
+        {
+            for (auto card : _player.hand_cards_)
+            {
+                Card * p_card = new Card(card->GetSuit(), card->GetRank());
+                hand_cards_.push_back(p_card);
+            }
+            player_id_ = _player.player_id_;
+        }
+
         Player::~Player()
         {
             for (auto card : hand_cards_)

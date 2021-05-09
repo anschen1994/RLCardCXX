@@ -14,6 +14,34 @@ namespace rlcard
             InitCards();
         }
 
+        BlackJackDealer::BlackJackDealer(const BlackJackDealer & _dealer)
+        {
+            for (auto card : _dealer.deck_)
+            {
+                Card* p_card = new Card(card->GetSuit(), card->GetRank());
+                deck_.push_back(p_card);
+            }
+            // for (auto card : _dealer.remained_cards_)
+            // {
+            //     Card* p_card = new Card(card->GetSuit(), card->GetRank());
+            //     remained_cards_.push_back(p_card);
+            // }
+        }
+
+        BlackJackDealer::~BlackJackDealer()
+        {
+            for (auto card : deck_)
+            {
+                delete card;
+            }
+            // for (auto card : remained_cards_)
+            // {
+            //     delete card;
+            // }
+            deck_.clear();
+            // remained_cards_.clear();
+        }        
+
         void BlackJackDealer::InitCards()
         {
             for (auto & suit : kSuit)
@@ -22,7 +50,7 @@ namespace rlcard
                 {
                     Card* pCard = new Card(suit, rank);
                     deck_.emplace_back(pCard);
-                    remained_cards_.emplace_back(pCard);
+                    // remained_cards_.emplace_back(pCard);
                 }
             }
         }
