@@ -18,7 +18,7 @@ namespace rlcard
 
         void BlackJackPlayer::SetStatus(string && status)
         {
-            status_ = std::move(status);
+            status_ = status;
         }
 
         void BlackJackPlayer::SetScore(int score)
