@@ -69,6 +69,7 @@ namespace rlcard
             Card* pCard = deck_.back();
             deck_.pop_back();
             player.AddHandCard(pCard);
+            return true;
         }
 
     }
