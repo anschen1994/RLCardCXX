@@ -7,10 +7,10 @@ namespace rlcard
 {
     namespace engine
     {
-        class BlackJackDealer : public BlackJackPlayer
+        class BlackJackDealer : public Dealer
         {
             public:
-                BlackJackDealer(const string & _status, int _score);
+                BlackJackDealer();
 
                 BlackJackDealer(const BlackJackDealer & _dealer);
 
@@ -26,8 +26,6 @@ namespace rlcard
 
             private:
                 static default_random_engine rand_gen_;
-                vector<Card*> deck_;
-                // vector<Card*> remained_cards_;
         };
     }
 }

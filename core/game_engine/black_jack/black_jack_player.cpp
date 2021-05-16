@@ -11,12 +11,12 @@ namespace rlcard
             hand_cards_.emplace_back(pCard);
         }
 
-        void BlackJackPlayer::SetStatus(string & status)
+        void BlackJackPlayer::SetStatus(const PlayerStatus & status)
         {
             status_ = status;
         }
 
-        void BlackJackPlayer::SetStatus(string && status)
+        void BlackJackPlayer::SetStatus(PlayerStatus && status)
         {
             status_ = status;
         }

@@ -5,12 +5,19 @@ namespace rlcard
 {
     namespace engine
     {
+        enum PlayerStatus
+        {
+            Alive,
+            Bust,
+            NumPlayerStatus
+        };
+
         class BlackJackPlayer : public Player
         {
             public:
                 BlackJackPlayer(int _player_id=0) : Player(_player_id) {}
 
-                BlackJackPlayer(const string & _status, const int & _score, const int & _player_id) \
+                BlackJackPlayer(const PlayerStatus & _status, const int & _score, const int & _player_id) \
                 : Player(_player_id), status_(_status), score_(_score) {}
 
                 virtual ~BlackJackPlayer() {;}
@@ -19,18 +26,18 @@ namespace rlcard
 
                 vector<string> AvailableOrder();
 
-                void SetStatus(string & status);
+                void SetStatus(const PlayerStatus & status);
 
-                void SetStatus(string && status);
+                void SetStatus(PlayerStatus && status);
 
                 void SetScore(int score);
 
                 inline int GetScore(){return score_;}
                 
-                inline string GetStatus(){return status_;}
+                inline PlayerStatus GetStatus(){return status_;}
 
             protected:
-                string status_;
+                PlayerStatus status_;
                 int score_;
         };
     }

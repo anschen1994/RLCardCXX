@@ -6,7 +6,7 @@ namespace rlcard
 {
     namespace engine
     {
-        int BlackJackJudger::JudgeScore(const vector<Card*> cards)
+        int BlackJackJudger::JudgeScore(const vector<Card*>& cards)
         {
             int score = 0;
             int num_A = 0;
@@ -38,11 +38,11 @@ namespace rlcard
             int player_score = JudgeScore(player.GetHandCard());
             if (player_score <= kFullScore)
             {
-                player.SetStatus("alive");
+                player.SetStatus(PlayerStatus::Alive);
             }
             else
             {
-                player.SetStatus("bust");
+                player.SetStatus(PlayerStatus::Bust);
             }
             player.SetScore(player_score);
         }

@@ -12,7 +12,7 @@ namespace rlcard
             public:
                 BlackJackJudger() = default;
 
-                int JudgeScore(const vector<Card*> cards);
+                int JudgeScore(const vector<Card*>& cards);
 
                 void JudgeRound(BlackJackPlayer & player);
 

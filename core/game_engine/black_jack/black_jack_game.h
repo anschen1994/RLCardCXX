@@ -13,16 +13,24 @@ namespace rlcard
             // BlackJackJudger judger_;
             map<string, int> winner_;
             BlackJackPlayer player_;
-            BlackJackHistory(BlackJackDealer & _dealer, map<string, int> & _winner, BlackJackPlayer & _player) : \
-            dealer_(_dealer), winner_(_winner), player_(_player) {}
+            BlackJackPlayer banker_;
+            BlackJackHistory(const BlackJackDealer & _dealer, const map<string, int> & _winner, const BlackJackPlayer & _player, const BlackJackPlayer & _banker) : \
+            dealer_(_dealer), winner_(_winner), player_(_player), banker_(_banker) {}
         };
 
         struct BlackJackGameState
         {
             vector<string> allow_actions_;
             map<string, vector<string>> players_hands_;
-            vector<string> dealer_hands_;
+            vector<string> banker_hands_;
             vector<string> current_player_hands_;
+        };
+
+        enum BlackJackAction
+        {
+            Hit,
+            Stand,
+            ActionNum
         };
 
         class BlackJackGame : public Game
@@ -42,11 +50,11 @@ namespace rlcard
 
                 inline int GetActionNumber() {return 2;};
 
-                inline int GetCurrentPlayerID() {return game_pointer_;};
+                inline int GetCurrentPlayerID() {return p_players_.at(game_pointer_)->GetPlayerID();};
 
                 inline int GetCurrentPlayerScore() {return p_players_.at(game_pointer_)->GetScore();}
 
-                inline string GetCurrentPlayerStatus() {return p_players_.at(game_pointer_)->GetStatus();}
+                inline PlayerStatus GetCurrentPlayerStatus() {return p_players_.at(game_pointer_)->GetStatus();}
 
                 bool IsGameOver();
 
@@ -66,7 +74,8 @@ namespace rlcard
                 const int player_num_ = 6;
                 BlackJackDealer* p_dealer_;
                 vector<BlackJackHistory*> history_;
-                vector<BlackJackPlayer*> p_players_;               
+                vector<BlackJackPlayer*> p_players_;
+                BlackJackPlayer* p_banker_;               
                 BlackJackJudger* p_judger_;
                 const int kStartCardNum = 2;
                 map<string, int> winners_;

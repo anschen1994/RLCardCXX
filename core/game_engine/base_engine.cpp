@@ -14,6 +14,10 @@ namespace rlcard
 
         Dealer::~Dealer()
         {
+            for (auto card : deck_)
+            {
+                delete card;
+            }
             deck_.clear();
             for (auto card : remained_cards_)
             {
