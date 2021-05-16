@@ -11,6 +11,7 @@ namespace rlcard
             p_dealer_ = nullptr;
             p_judger_ = nullptr;
             p_banker_ = nullptr;
+            logger_ = spdlog::basic_logger_mt("black_jack_logger", "./logs/black_jack_game.log");
         }
 
         bool BlackJackGame::Reset()
@@ -67,6 +68,7 @@ namespace rlcard
             game_pointer_ = 0;
             p_state_ = new BlackJackGameState();
             GetState(game_pointer_, *p_state_);
+            logger_->info("Reset game sucessfully!");
             return true;
         }
 

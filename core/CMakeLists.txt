@@ -17,6 +17,7 @@ message(STATUS "FLAGS:${COMMON_FLAGS}")
 include_directories(${PROJECT_SOURCE_DIR}/config)
 include_directories(${PROJECT_SOURCE_DIR}/game_engine)
 include_directories((${PROJECT_SOURCE_DIR}/utils))
+include_directories(${PROJECT_SOURCE_DIR})
 
 # source file
 file(GLOB_RECURSE RLCARD_SRC_FILE ${PROJECT_SOURCE_DIR}/game_engine/*.cpp)

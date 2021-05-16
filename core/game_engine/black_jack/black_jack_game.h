@@ -2,6 +2,8 @@
 #include "black_jack_dealer.h"
 #include "black_jack_player.h"
 #include "black_jack_judger.h"
+#include "spdlog/spdlog.h"
+#include "spdlog/sinks/basic_file_sink.h"
 
 namespace rlcard
 {
@@ -84,6 +86,7 @@ namespace rlcard
                 bool is_over_ = false;
                 bool is_allow_back_ = true;
                 const int min_dealer_score_ = 17;
+                shared_ptr<spdlog::logger> logger_;
 
         };
     }
