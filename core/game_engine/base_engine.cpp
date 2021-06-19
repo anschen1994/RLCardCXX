@@ -7,33 +7,47 @@ namespace rlcard
     {
         int Card::hash(const string &_suit, const string &_rank)
         {
-            int suit_index = GetIndexOfVector(kSuit, _suit);
-            int rank_index = GetIndexOfVector(kRank, _rank);
+            int suit_index = rlcard::GetIndexOfVector(kSuit, _suit);
+            int rank_index = rlcard::GetIndexOfVector(kRank, _rank);
             return rank_index + 100 * suit_index;
         }
 
-        // inline bool Card::operator==(const Card &_card)
-        // {
-        //     return _card.rank_ == rank_ && _card.suit_ == suit_;
-        // }
-
-        // inline string Card::GetCardRepresentation()
-        // {
-        //     return rank_ + suit_;
-        // }
-
         Dealer::~Dealer()
         {
+            for (auto card : deck_)
+            {
+                delete card;
+            }
+            deck_.clear();
+            for (auto card : remained_cards_)
+            {
+                delete card;
+            }
+            remained_cards_.clear();
         }
 
-        inline int Dealer::GetRemainedCardNumber()
+        const vector<Card*> & Player::GetHandCard()
         {
-            return int(remained_cards_.size());
+            return hand_cards_;
         }
 
-        inline int Dealer::GetTotalCardNumber()
+        Player::Player(const Player & _player)
         {
-            return int(deck_.size());
+            for (auto card : _player.hand_cards_)
+            {
+                Card * p_card = new Card(card->GetSuit(), card->GetRank());
+                hand_cards_.push_back(p_card);
+            }
+            player_id_ = _player.player_id_;
+        }
+
+        Player::~Player()
+        {
+            for (auto card : hand_cards_)
+            {
+                delete card;
+            }
+            hand_cards_.clear();
         }
     } // namespace engine
 } // namespace rlcard

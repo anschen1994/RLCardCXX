@@ -10,96 +10,92 @@ namespace rlcard
     {
         class Card
         {
-        public:
-            Card(const string &_suit, const string &_rank) : suit_(_suit), rank_(_rank), hash_value_(hash(_suit, _rank)) {}
+            public:
+                Card(const string & _suit, const string & _rank) : suit_(_suit), rank_(_rank){}
+                
+                inline bool operator==(const Card & _card) {return _card.rank_ == rank_ && _card.suit_ == suit_;}
 
-            int hash(const string &_suit, const string &_rank);
+                int hash(const string &_suit, const string &_rank);
 
-            inline string GetCardRepresentation() { return rank_ + suit_; } // change: 内联函数定义放在头文件?
+                inline string GetCardRepresentation() {return rank_ + suit_;}
 
-            inline bool operator==(const Card &_card) { return _card.rank_ == rank_ && _card.suit_ == suit_; }
-            const string suit_;
-            const string rank_;
+                inline string GetSuit()const {return suit_;}
 
-        protected:
-            const int hash_value_;
+                inline string GetRank() const {return rank_;}
+
+            protected:
+                int hash_value_;
+                const string suit_;
+                const string rank_;
         };
 
         class Dealer
         {
-        public:
-            Dealer() = default;
+            public:
+                Dealer() = default;
 
-            virtual ~Dealer(); // change: 析构函数没必要写成纯虚函数？
+                virtual ~Dealer();
 
-            virtual void Shuffle() = 0; // shuffle the remained cards
+                virtual void Shuffle() = 0; // shuffle the remained cards
 
-            virtual Card *DealCard(int num_params, ...) = 0;
+                virtual void InitCards() = 0;
 
-            inline int GetRemainedCardNumber();
+                inline int GetRemainedCardNumber(){return int(remained_cards_.size());}
 
-            inline int GetTotalCardNumber();
+                inline int GetTotalCardNumber(){return (int)deck_.size();}
 
-        protected:
-            vector<Card *> deck_;
-            vector<Card *> remained_cards_;
+            protected:
+                vector<Card *> deck_;
+                vector<Card *> remained_cards_;
         };
 
         class Player
         {
-        public:
-            Player(int _player_id) : player_id_(_player_id) {}
+            public:
+                Player(int _player_id) : player_id_(_player_id) {}
 
-            virtual ~Player(){};
+                Player(const Player & _player);
 
-            virtual vector<string> AvailableOrder() = 0;
+                virtual ~Player();
 
-            virtual void Play() = 0;
-            vector<Card *> hand_cards_;
+                virtual vector<string> AvailableOrder() = 0;
 
-        protected:
-            int player_id_;
-        };
+                inline int GetPlayerID() const {return player_id_;}
 
-        class Judger
-        {
-        public:
-            Judger() = default;
+                const vector<Card*> & GetHandCard();
 
-            virtual bool JudgeRound(int num_params, ...) = 0; // vars that need to be modified can be passed in the form of pointers
-
-            virtual bool JudgeGame(int num_params, ...) = 0; // vars that need to be modified can be passed in the form of pointers
+            protected:
+                int player_id_;
+                vector<Card*> hand_cards_;
         };
 
         class Round
         {
-        public:
-            Round() = default;
+            public:
+                Round() = default;
 
             virtual bool ProcessRound(int num_params, ...) = 0;
 
-        protected:
-            int round_id_;
+            protected:
+                int round_id_;
         };
 
         class Game
         {
-        public:
-            Game() = default;
+            public:
+                Game() = default;
 
-            virtual bool Reset() = 0; // intialize a game
+                virtual bool Reset() = 0; // intialize a game
+ 
+                // virtual void StepBack();
 
-            virtual void Step(const string &action) = 0;
+                virtual inline int GetPlayerNumber() = 0;
 
-            virtual void StepBack();
+                virtual inline int GetActionNumber() = 0;
 
-            virtual int GetPlayerNumber() = 0;
+                virtual inline int GetPlayerID() = 0;
 
-            virtual int GetActionNumber() = 0;
-
-            virtual int GetPlayerID() = 0;
-
-            virtual bool IsGameOver() = 0;
+                virtual bool IsGameOver() = 0;
         };
     } // namespace engine
 } // namespace rlcard

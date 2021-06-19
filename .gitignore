@@ -1,3 +1,4 @@
 /core/build
-/lib
-test
+/test
+/core/unit_test/build
+/core/unit_test/logs
