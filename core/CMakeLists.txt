@@ -20,8 +20,9 @@ include_directories((${PROJECT_SOURCE_DIR}/utils))
 include_directories(${PROJECT_SOURCE_DIR})
 
 # source file
-file(GLOB_RECURSE RLCARD_SRC_FILE ${PROJECT_SOURCE_DIR}/game_engine/*.cpp)
-list(APPEND RLCARD_SRC_FILE ${PROJECT_SOURCE_DIR}/utils/helper.cpp)
+file(GLOB_RECURSE RLCARD_SRC_FILE ${PROJECT_SOURCE_DIR}/game_engine/black_jack/*.cpp)
+list(APPEND RLCARD_SRC_FILE ${PROJECT_SOURCE_DIR}/game_engine/base_engine.cpp)
+# list(APPEND RLCARD_SRC_FILE ${PROJECT_SOURCE_DIR}/utils/helper.cpp)
 
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 add_library(rlcard SHARED ${RLCARD_SRC_FILE})

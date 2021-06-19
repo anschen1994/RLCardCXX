@@ -72,6 +72,8 @@ namespace rlcard
 
                 inline const vector<BlackJackPlayer*> & GetGamePlayers() {return p_players_;}
 
+                int inline GetPlayerID() {return game_pointer_;}
+
             private:
                 const int player_num_ = 6;
                 BlackJackDealer* p_dealer_;

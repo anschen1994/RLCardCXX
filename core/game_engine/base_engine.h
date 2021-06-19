@@ -1,5 +1,5 @@
-#pragma once 
-#include "config.h"
+#pragma once
+#include "../config/config.h"
 #include <map>
 
 using namespace std;
@@ -11,11 +11,11 @@ namespace rlcard
         class Card
         {
             public:
-                Card(const string & _suit, const string & _rank) : suit_(_suit), rank_(_rank), hash_value_(hash(_suit, _rank)){}
+                Card(const string & _suit, const string & _rank) : suit_(_suit), rank_(_rank){}
                 
                 inline bool operator==(const Card & _card) {return _card.rank_ == rank_ && _card.suit_ == suit_;}
 
-                int hash(const string & _suit, const string & _rank);
+                int hash(const string &_suit, const string &_rank);
 
                 inline string GetCardRepresentation() {return rank_ + suit_;}
 
@@ -24,9 +24,9 @@ namespace rlcard
                 inline string GetRank() const {return rank_;}
 
             protected:
+                int hash_value_;
                 const string suit_;
                 const string rank_;
-                const int hash_value_;
         };
 
         class Dealer
@@ -45,8 +45,8 @@ namespace rlcard
                 inline int GetTotalCardNumber(){return (int)deck_.size();}
 
             protected:
-                vector<Card*> deck_;
-                vector<Card*> remained_cards_;
+                vector<Card *> deck_;
+                vector<Card *> remained_cards_;
         };
 
         class Player
@@ -74,7 +74,7 @@ namespace rlcard
             public:
                 Round() = default;
 
-                virtual bool ProcessRound(int num_params, ...) = 0;
+            virtual bool ProcessRound(int num_params, ...) = 0;
 
             protected:
                 int round_id_;
@@ -93,8 +93,9 @@ namespace rlcard
 
                 virtual inline int GetActionNumber() = 0;
 
-                virtual bool IsGameOver() = 0;
+                virtual inline int GetPlayerID() = 0;
 
+                virtual bool IsGameOver() = 0;
         };
-    }
-}
+    } // namespace engine
+} // namespace rlcard

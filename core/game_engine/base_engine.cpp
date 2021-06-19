@@ -1,11 +1,11 @@
 #include "base_engine.h"
-#include "helper.h"
+#include "../utils/helper.h"
 
 namespace rlcard
 {
     namespace engine
     {
-        int Card::hash(const string & _suit, const string & _rank)
+        int Card::hash(const string &_suit, const string &_rank)
         {
             int suit_index = rlcard::GetIndexOfVector(kSuit, _suit);
             int rank_index = rlcard::GetIndexOfVector(kRank, _rank);
@@ -49,5 +49,5 @@ namespace rlcard
             }
             hand_cards_.clear();
         }
-    }
-}
+    } // namespace engine
+} // namespace rlcard
